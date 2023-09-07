@@ -1,0 +1,100 @@
+query 1
+--------------------------------------------------------------------------------
+SELECT date_of_match, away_team 
+FROM ipl_matches
+WHERE Home_team LIKE "%chennai%";
+
+
+
+query 2
+--------------------------------------------------------------------------------
+SELECT batsman, SUM(run) as total_runs 
+FROM ipl_batsman 
+GROUP BY batsman 
+ORDER BY total_runs DESC 
+LIMIT 10; 
+
+
+
+query 3
+--------------------------------------------------------------------------------
+SELECT bowler, SUM(wicket) as total_wickets 
+FROM ipl_bowler 
+GROUP BY bowler 
+ORDER BY total_wickets DESC 
+LIMIT 10; 
+
+
+
+query 4
+--------------------------------------------------------------------------------
+SELECT date_of_match, Home_team, away_team, winner 
+FROM ipl_matches 
+WHERE venue LIKE "%chinnaswamy%";
+
+
+
+query 5
+--------------------------------------------------------------------------------
+SELECT team,SUM(6s) AS total_sixes 
+FROM ipl_batsman 
+GROUP BY team 
+ORDER BY total_sixes DESC;
+
+
+
+query 6
+--------------------------------------------------------------------------------
+SELECT match_no ,batsman, run
+FROM ipl_batsman
+WHERE run >= (SELECT avg(run) FROM ipl_batsman)  
+ORDER BY run DESC;
+
+
+
+query 7
+--------------------------------------------------------------------------------
+SELECT * FROM ipl_bowler 
+WHERE eco<4 
+ORDER BY eco DESC 
+LIMIT 10;
+
+
+query 8
+--------------------------------------------------------------------------------
+SELECT * 
+FROM ipl_bowler 
+WHERE eco < (SELECT AVG(ECO) FROM ipl_bowler) AND wicket>=3 
+ORDER BY ECO DESC;
+
+
+
+query 9
+--------------------------------------------------------------------------------
+SELECT batsman, out_by 
+FROM ipl_batsman 
+WHERE out_by LIKE "%siraj%";
+
+
+ 
+query 10
+--------------------------------------------------------------------------------
+SELECT man_of_the_match, COUNT(*) AS count_of
+FROM ipl_matches
+GROUP BY man_of_the_match 
+ORDER BY count_of DESC;
+
+
+
+query 11
+--------------------------------------------------------------------------------
+SELECT ipl_batsman.batsman AS batsman, 
+       ipl_bowler.bowler AS bowler, 
+       eco AS economy_rate
+FROM ipl_batsman
+JOIN ipl_bowler
+ON ipl_batsman.team LIKE '%Chennai Super Kings%' AND ipl_bowler.eco >1 and ipl_bowler.eco < 4 and ipl_bowler.team != 'Chennai Super Kings'
+ORDER BY economy_rate DESC;
+
+
+
